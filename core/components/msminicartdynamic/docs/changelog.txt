@@ -1,5 +1,11 @@
 Changelog for msMiniCartDynamic.
 
+1.0.3-beta3
+==============
+- [msDynamicCount] Убран атрибут disabled
+- [msDynamicCountChange] Убран атрибут disabled
+- [msminicartdynamic.js] - общие улучшения
+
 1.0.3-beta2
 ==============
 - Из-за проблем в Safari полностью переписан js
