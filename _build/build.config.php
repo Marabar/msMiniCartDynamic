@@ -5,7 +5,7 @@ define('PKG_NAME', 'msMiniCartDynamic');
 define('PKG_NAME_LOWER', strtolower(PKG_NAME));
 
 define('PKG_VERSION', '1.0.3');
-define('PKG_RELEASE', 'beta2');
+define('PKG_RELEASE', 'beta3');
 define('PKG_AUTO_INSTALL', true);
 define('PKG_NAMESPACE_PATH', '{core_path}components/' . PKG_NAME_LOWER . '/');
 
@@ -44,8 +44,8 @@ define('BUILD_SNIPPET_UPDATE', true);
 //define('BUILD_POLICY_TEMPLATE_UPDATE', true);
 //define('BUILD_PERMISSION_UPDATE', true);
 
-define('BUILD_CHUNK_STATIC', true);
-define('BUILD_SNIPPET_STATIC', true);
+define('BUILD_CHUNK_STATIC', false);
+define('BUILD_SNIPPET_STATIC', false);
 //define('BUILD_PLUGIN_STATIC', false);
 
 $BUILD_RESOLVERS = array(

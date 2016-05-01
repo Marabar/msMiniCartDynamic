@@ -35,6 +35,8 @@ var msMiniCartDynamic = {
                                 $( selectorForm+ ' .dynamic-key' ).val( response['data']['key'] );
                                 $( selectorForm + ' .dynamic-action' ).val( 'cart/change' );
                         }
+                        
+                        console.log(response);
                 };
         }
         ,changeCartDynamic : function( selectorForm, count  ) {
@@ -48,6 +50,8 @@ var msMiniCartDynamic = {
                                 else {
                                         $( selectorForm + ' .dynamic-action' ).val( 'cart/change' );
                                 }
+                                
+                                console.log(response);
                         }
                 };
         }
@@ -64,15 +68,32 @@ $(document).ready(function(){
             return !!(a==0||a==8||a==9||a==13||c.match(C));
     });
 
-    $( document ).on( 'change', msMiniCartDynamic.init.selectorAction, function(){
+    $( document ).on( 'change keypress', msMiniCartDynamic.init.selectorAction, function( event ){
             var selectorForm = '#' +  $( this ).closest( 'form' ).attr( 'id' );
             var count = parseInt($( this ).val());
+            var c = $( selectorForm + ' .dynamic-action' ).val();
             
-            if ( event.which == 13 || event.type == 'change' ) {
-                    $( this ).closest( 'form' ).submit();
+            if ( event.which == 13 ) {
+                    
+                    if ( c == 'cart/add' ) {
+                            msMiniCartDynamic.toCartDynamic( selectorForm );
+                    }
+                    else {
+                            msMiniCartDynamic.changeCartDynamic( selectorForm, count );
+                    }
                     $(this).blur();
-                    msMiniCartDynamic.toCartDynamic( selectorForm );
-                    msMiniCartDynamic.changeCartDynamic( selectorForm, count );
+                    
+                    return false;
+            }
+            else if ( event.type == 'change' ) {
+                    $( this ).closest( 'form' ).submit();
+                    
+                    if ( c == 'cart/add' ) {
+                            msMiniCartDynamic.toCartDynamic( selectorForm );
+                    }
+                    else {
+                            msMiniCartDynamic.changeCartDynamic( selectorForm, count );
+                    }
             }
     });
     
@@ -89,6 +110,9 @@ $(document).ready(function(){
                     current.val( count + dynamic ).submit();
                     
                     msMiniCartDynamic.toCartDynamic( selectorForm );
+            }
+            else if ( isNaN( count ) && dynamic == -1 ) {
+                    return false;
             }
             else if ( count == 1 && dynamic == -1 ) {
                     current.val( '' ).submit();

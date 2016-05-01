@@ -4,34 +4,55 @@ msMiniCartDynamic
 Author: Marat Marabar <marat@marabar.ru>
 --------------------
 
-Компонент msMiniCartDynamic для miniShop2.
+Компонент msMiniCartDynamic для магазина miniShop2 даёт возможность изменять количество добавляемых товаров в корзину, как кнопками +-,
+так и ручным вводом количества в поле input. Также, при необходимости, есть возможность динамического изменения миникорзины.
 
-Чтобы добавить инпут в блоки с товарами на странице каталога, необходимо в форму добавить идентификатор id="dynamic-[[+id]]" и вызов сниппета msDynamicCount.
-Удалить кнопку добавления и input[name=count]
-Должно получится примерно следующее:
+*********************************
+Добавление +- к товарам каталога
+*********************************
 
-<form method="post" id="dynamic-[[+id]]" class="ms2_form">
-        <a href="[[~[[+id]]]]">[[+pagetitle]]</a>
-        <span class="flags">[[+new]] [[+popular]] [[+favorite]]</span>
-        <span class="price">[[+price]] [[%ms2_frontend_currency]]</span>
-        [[+old_price]]
+Для добавления к товарам каталога кнопок +-, необходимо отредактировать форму в чанке miniShop2 - tpl.msProducts.row, должно получиться примерно так:
 
-        [[msDynamicCount? &id=`[[+id]]`]]
+<form method="post" class="ms2_form">
+	<a href="[[~[[+id]]]]">[[+pagetitle]]</a>
+	<span class="flags">[[+new]] [[+popular]] [[+favorite]]</span>
+	<span class="price">[[+price]] [[%ms2_frontend_currency]]</span>
+	[[+old_price]]
 
-        <input type="hidden" name="id" value="[[+id]]">
-        <input type="hidden" name="options" value="[]">
+	[[!msDynamicCount?
+		&id=`[[+id]]`
+	]]
+
+	<input type="hidden" name="id" value="[[+id]]">
+	<input type="hidden" name="options" value="[]">
 </form>
 
-Передать в сниппет msDynamicCount обязательный параметр &id=`[[+id]]`.
-Доступные плейсхолдеры:
-[[+name_d]] - pagetitle товара
-[[+key_d]] - ключ товара
-[[+count_d]] - кол-во товара
-[[+price_d]] - цена товара
-[[+sum_d]] - сумма товара
+
+<ol>
+	<li>Удалить button name="ms2_action"</li>
+	<li>Удалить input name="count"</li>
+	<li>Разместить не кэшированный вызов сниппета [[!msDynamicCount]], с обязательным параметром &id=[[+id]]</li>
+</ol>
 
 
-В мини корзине разместить сниппет msMiniCartDynamic
+Подключить скрипт msMiniCartDynamic после jQuery. До или после скрипта miniShop2 - разницы нет, работает так и так.
+
+<script src="/assets/components/msminicartdynamic/js/web/msminicartdynamic.js"></script>
+
+Доступны плейсхолдеры:
+<ul>
+	<li>[[+key_d]] - Уникальный ключ товара в корзине</li>
+	<li>[[+count_d]] - Количество этого товара в корзине</li>
+	<li>[[+id_d]] - ID товара (ресурса) в корзине</li>
+	
+</ul>
+
+***********************************
+Динамическое изменение миникорзины
+***********************************
+
+Компонент имеет возможность динамически изменять состав миникорзины, для этого достаточно в чанк tpl.msMiniCart поместить вызов сниппета 
+
 
 <div id="msMiniCart" [[+total_count:isnot=`0`:then=`class="full"`:else=``]]>
 	<div class="empty">
@@ -39,7 +60,7 @@ Author: Marat Marabar <marat@marabar.ru>
 		[[%ms2_minicart_is_empty]]
 	</div>
 
-        [[msMiniCartDynamic]]
+	[[!msMiniCartDynamic]]
 
 	<div class="not_empty">
 		<h5><i class="glyphicon glyphicon-shopping-cart"></i> [[%ms2_minicart]]</h5>
@@ -48,7 +69,18 @@ Author: Marat Marabar <marat@marabar.ru>
 	</div>
 </div>
 
-Подключить скрипт msMiniCartDynamic после jQuery.
-До или после скрипта miniShop2 - разницы нет, работает так и так.
 
-<script src="/assets/components/msminicartdynamic/js/web/msminicartdynamic.js"></script>
+Доступны плейсхолдеры:
+<ul>
+	<li>[[+name_d]] - Название товара (pagetitle)</li>
+	<li>[[+key_d]] - Ключ товара</li>
+	<li>[[+count_d]] - Количество данного товара в корзине</li>
+	<li>[[+price_d]] - Цена товара товара за единицу</li>
+	<li>[[+sum_d]] - Сумма товара</li>
+	
+</ul>
+
+*******************************
+
+Сам по себе мой компонент в корзину ничего не добавляет, этим всем занимается miniShop2. <b>msMiniCartDynamic</b> просто инициализирует и ловит
+определённые события изменения корзины, подсчитывает кол-во и сумму определённого товара и выводит всё это дело на экран.
