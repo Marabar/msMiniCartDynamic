@@ -35,8 +35,6 @@ var msMiniCartDynamic = {
                                 $( selectorForm+ ' .dynamic-key' ).val( response['data']['key'] );
                                 $( selectorForm + ' .dynamic-action' ).val( 'cart/change' );
                         }
-                        
-                        console.log(response);
                 };
         }
         ,changeCartDynamic : function( selectorForm, count  ) {
@@ -50,8 +48,6 @@ var msMiniCartDynamic = {
                                 else {
                                         $( selectorForm + ' .dynamic-action' ).val( 'cart/change' );
                                 }
-                                
-                                console.log(response);
                         }
                 };
         }
@@ -121,7 +117,7 @@ $(document).ready(function(){
             }
             else {
                     current.val( count + dynamic ).submit();
-                    msMiniCartDynamic.changeCartDynamic( selectorForm, count - 1 );
+                    msMiniCartDynamic.changeCartDynamic( selectorForm, count );
                     $( selectorForm + ' .dynamic-action' ).val( 'cart/change' );
             }
     });
