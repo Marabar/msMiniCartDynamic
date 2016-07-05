@@ -1,5 +1,8 @@
 Changelog for msMiniCartDynamic.
 
+1.0.0-pl
+- [msminicartdynamic.js] - Обновление мини корзины после стандартного добавления товара (без +/-)
+
 1.0.3-beta4
 ==============
 - [msminicartdynamic.js] - удалён отладочный код
