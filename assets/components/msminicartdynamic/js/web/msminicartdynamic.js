@@ -6,7 +6,6 @@ var msMiniCartDynamic = {
                 ,selectorResult : '#mc-dynamic'
                 ,selectorClick : '.dynamic-count'
                 ,cartChange : 'cart/chang'
-                ,dynamic : '.dynamic-'
         }
         ,changeDynamic : function( act ) {
             
@@ -82,7 +81,7 @@ $(document).ready(function(){
 			return false;
 		}
 		else if ( event.type == 'change' ) {
-			$( this ).closest( 'form' ).submit();
+			$( this ).closest( selectorForm ).submit();
 
 			if ( c == 'cart/add' ) {
 				msMiniCartDynamic.toCartDynamic( selectorForm );
@@ -126,6 +125,11 @@ $(document).ready(function(){
 		var cls = $( this ).attr( 'class' );
 		if ( cls != 'dynamic-action' ) {
 			miniShop2.Callbacks.Cart.add.response.success = function( response ) {
+				if( response['success'] == true ) {
+					msMiniCartDynamic.changeDynamic( 'add' );
+				}
+			}
+			miniShop2.Callbacks.Cart.remove.response.success = function( response ) {
 				if( response['success'] == true ) {
 					msMiniCartDynamic.changeDynamic( 'add' );
 				}
