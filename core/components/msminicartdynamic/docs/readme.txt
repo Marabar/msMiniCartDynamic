@@ -13,7 +13,7 @@ Author: Marat Marabar <marat@marabar.ru>
 
 Для добавления к товарам каталога кнопок +-, необходимо отредактировать форму в чанке miniShop2 - tpl.msProducts.row, должно получиться примерно так:
 
-<form method="post" class="ms2_form">
+<form method="post" id="dynamic-[[+id]]" class="ms2_form">
 	<a href="[[~[[+id]]]]">[[+pagetitle]]</a>
 	<span class="flags">[[+new]] [[+popular]] [[+favorite]]</span>
 	<span class="price">[[+price]] [[%ms2_frontend_currency]]</span>
@@ -31,6 +31,7 @@ Author: Marat Marabar <marat@marabar.ru>
 <ol>
 	<li>Удалить button name="ms2_action"</li>
 	<li>Удалить input name="count"</li>
+        <li>Добавить в форму идентификатор id="dynamic-[[+id]]": <form method="post" id="dynamic-[[+id]]" class="ms2_form">...</form>
 	<li>Разместить не кэшированный вызов сниппета [[!msDynamicCount]], с обязательным параметром &id=[[+id]]</li>
 </ol>
 
