@@ -1,6 +1,9 @@
 Changelog for msMiniCartDynamic.
 
 1.0.1-pl
+- [msminicartdynamic] - Добавлена картинка в миникорзину
+
+1.0.1-pl
 - [msminicartdynamic.js] - Обновление мини-корзины после удаления товара из корзины
 - [msDynamicCount] - стилизация кнопок +/- (Bootstrap3)
 - [msDynamicCountChange] - стилизация кнопок +/- (Bootstrap3)
