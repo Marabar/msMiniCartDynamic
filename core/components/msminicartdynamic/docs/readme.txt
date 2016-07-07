@@ -61,7 +61,9 @@ Author: Marat Marabar <marat@marabar.ru>
 		[[%ms2_minicart_is_empty]]
 	</div>
 
-	[[!msMiniCartDynamic]]
+	[[!msMiniCartDynamic?
+            &img = `24x92`
+        ]]
 
 	<div class="not_empty">
 		<h5><i class="glyphicon glyphicon-shopping-cart"></i> [[%ms2_minicart]]</h5>
@@ -82,11 +84,10 @@ Author: Marat Marabar <marat@marabar.ru>
 </ul>
 
 Параметры:
-Доступны плейсхолдеры:
 <ul>
-	<li>tpl - Чанк для одного товара. По умолчанию: msMinicartDynamic<</li>
-	<li>tplOuter - Чанк обёртка всего блока. По умолчанию: msMinicartDynamicOuter</li>
-	<li>img - Картинка (миниатюра) товара. По умолчанию: 24x92</li>
+	<li>&tpl - Чанк для одного товара. По умолчанию: msMinicartDynamic</li>
+	<li>&tplOuter - Чанк обёртка всего блока. По умолчанию: msMinicartDynamicOuter</li>
+	<li>&img - Картинка (миниатюра) товара. По умолчанию: 24x92</li>
 </ul>
 
 *******************************
