@@ -6,30 +6,39 @@ if (!$msMiniCartDynamic = $modx->getService('msminicartdynamic', 'msMiniCartDyna
 
 $tpl = $modx->getOption('tpl', $scriptProperties, 'msMinicartDynamic');
 $tplOuter = $modx->getOption('tplOuter', $scriptProperties, 'msMinicartDynamicOuter');
+$img = $modx->getOption('img', $scriptProperties, '24x92');
 
 $out = '';
 $cart = $msMiniCartDynamic->getMsCart('get');
 
+$img = !empty($img)
+	? '/'. $img. '/'
+	: '/';
+
 if (!isset($_SESSION['dynamicChunk'])) {
         $_SESSION['dynamicChunk'] = array();
         $_SESSION['dynamicChunk']['tpl'] = $tpl;
+	$_SESSION['dynamicChunk']['img'] = $img;
 }
 elseif ($_SESSION['dynamicChunk']['tpl'] != $tpl) {
         $_SESSION['dynamicChunk']['tpl'] = $tpl;
 }
+elseif ($_SESSION['dynamicChunk']['img'] != $img) {
+        $_SESSION['dynamicChunk']['img'] = $img;
+}
 
 foreach ($cart as $k => $v) {
-        $obj = $modx->getObject('msProduct', array('id' => $v['id']));
-        if ($obj) {
-                $title = $obj->get('pagetitle');
-        }
-        
+	
+	$t = array();
+	$t = $msMiniCartDynamic->getPathImg($v['id'], $img);
+	
         $out .= $modx->getChunk($tpl, array(
-                'name_d' => $title,
+                'name_d' => $t['title'],
                 'key_d' => $k,
                 'count_d' => $v['count'],
                 'price_d' => $v['price'],
                 'sum_d' => $v['count'] * $v['price'],
+		'img_d' => $t['img_path'],
         ));
 }
 
