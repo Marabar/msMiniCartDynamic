@@ -11,6 +11,10 @@ $tmp = array(
 		'type' => 'textfield',
 		'value' => 'msMinicartDynamicOuter',
 	),
+	'img' => array(
+		'type' => 'textfield',
+		'value' => '24x92',
+	),
 );
 
 foreach ($tmp as $k => $v) {
