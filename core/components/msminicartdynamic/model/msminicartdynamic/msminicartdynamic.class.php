@@ -79,19 +79,19 @@ class msMiniCartDynamic {
                 if ($cart) {
                 
                         foreach ($cart as $k => $v) {
-
-                                $obj = $this->modx->getObject('msProduct', $v['id']);
-                                if ($obj) 
-                                        $pagetitle = $obj->get('pagetitle');
+				
+				$t = array();
+				$t = $this->getPathImg($v['id'], $_SESSION['dynamicChunk']['img']);
 
                                 $success['success'] = true;
                                 $success['data'] = array(
                                         'key_d' => $k,
                                         'id_d' => $v['id'],
-                                        'name_d' => $pagetitle,
+                                        'name_d' => $t['title'],
                                         'count_d' => $v['count'],
                                         'price_d' => $v['price'],
                                         'sum_d' => $v['count'] * $v['price'],
+					'img_d' => $t['img_path'],
                                 );
 
                                 $tpl .= $this->modx->getChunk($_SESSION['dynamicChunk']['tpl'], $success['data']);
@@ -99,9 +99,7 @@ class msMiniCartDynamic {
                         
                         unset($cart);
 
-                        //$tplChange = $this->modx->getChunk($_SESSION['dynamicChunk']['tplChange'], $success['data']);
                         $success['data']['tpl'] = $tpl;
-                        $success['data']['tplChange'] = $tplChange;
 
                         return $this->modx->toJSON($success);
                 }
@@ -113,4 +111,26 @@ class msMiniCartDynamic {
                         return $this->modx->toJSON($success);
                 }
         }
+	
+	
+	public function getPathImg($id, $img) {
+		
+		$response = array();
+		
+		$q = $this->modx->newQuery('msProduct', $id);
+		$q->select('pagetitle, msProductFile.url');
+		$q->leftJoin('msProductFile', 'msProductFile', 'msProductFile.product_id=msProduct.id');
+		$q->where(array(
+			'msProductFile.path' => $id. $img,
+		));
+		if ($q->prepare() && $q->stmt->execute()) {
+			while ($row = $q->stmt->fetch(PDO::FETCH_ASSOC)) {
+				
+				$response['title'] = $row['pagetitle'];
+				$response['img_path'] = $row['url'];
+			}
+		}
+		
+		return $response;
+	}
 }
