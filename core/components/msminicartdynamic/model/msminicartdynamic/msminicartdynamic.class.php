@@ -46,7 +46,8 @@ class msMiniCartDynamic {
 
                 $cart = $_SESSION['minishop2']['cart'];
                 
-                if (empty($cart)) return;
+                if (empty($cart)) 
+                    return false;
                 
                 if ($id == 'get') return $cart;
                 

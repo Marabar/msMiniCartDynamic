@@ -11,6 +11,9 @@ $img = $modx->getOption('img', $scriptProperties, '24x92');
 $out = '';
 $cart = $msMiniCartDynamic->getMsCart('get');
 
+if ($cart == false)
+    return;
+
 $img = !empty($img)
 	? '/'. $img. '/'
 	: '/';

@@ -1,5 +1,8 @@
 Changelog for msMiniCartDynamic.
 
+1.0.3-pl
+- [msminicartdynamic] - Исправлена ошибка "пустой корзины"
+
 1.0.2-pl
 - [msminicartdynamic] - Добавлена картинка в миникорзину
 
