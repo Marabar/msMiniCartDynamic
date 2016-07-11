@@ -12,7 +12,7 @@ $out = '';
 $cart = $msMiniCartDynamic->getMsCart('get');
 
 if ($cart == false)
-    return;
+    return $modx->getChunk($tplOuter, array('output' => ''));
 
 $img = !empty($img)
 	? '/'. $img. '/'
