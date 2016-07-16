@@ -1,5 +1,8 @@
 Changelog for msMiniCartDynamic.
 
+1.0.4-pl
+- [msminicartdynamic] - Удаление товара из мини-корзины. Переход из корзины на страницу товара.
+
 1.0.3-pl
 - [msminicartdynamic] - Исправлена ошибка "пустой корзины"
 

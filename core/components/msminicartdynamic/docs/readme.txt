@@ -28,12 +28,12 @@ Author: Marat Marabar <marat@marabar.ru>
 </form>
 
 
-<ol>
-	<li>Удалить button name="ms2_action"</li>
-	<li>Удалить input name="count"</li>
-        <li>Добавить в форму идентификатор id="dynamic-[[+id]]": <form method="post" id="dynamic-[[+id]]" class="ms2_form">...</form>
-	<li>Разместить не кэшированный вызов сниппета [[!msDynamicCount]], с обязательным параметром &id=[[+id]]</li>
-</ol>
+
+    Удалить button name="ms2_action"
+    Удалить input name="count"
+    Добавить в форму идентификатор id="dynamic-[[+id]]": <form method="post" id="dynamic-[[+id]]" class="ms2_form">...</form>
+    Разместить не кэшированный вызов сниппета [[!msDynamicCount]], с обязательным параметром &id=[[+id]]
+
 
 
 Подключить скрипт msMiniCartDynamic после jQuery. До или после скрипта miniShop2 - разницы нет, работает так и так.
@@ -41,12 +41,11 @@ Author: Marat Marabar <marat@marabar.ru>
 <script src="/assets/components/msminicartdynamic/js/web/msminicartdynamic.js"></script>
 
 Доступны плейсхолдеры:
-<ul>
-	<li>[[+key_d]] - Уникальный ключ товара в корзине</li>
-	<li>[[+count_d]] - Количество этого товара в корзине</li>
-	<li>[[+id_d]] - ID товара (ресурса) в корзине</li>
+
+    [[+key_d]] - Уникальный ключ товара в корзине
+    [[+count_d]] - Количество этого товара в корзине
+    [[+id_d]] - ID товара (ресурса) в корзине
 	
-</ul>
 
   ***********************************
 2.  Динамическое изменение миникорзины
@@ -74,21 +73,22 @@ Author: Marat Marabar <marat@marabar.ru>
 
 
 Доступны плейсхолдеры:
-<ul>
-	<li>[[+name_d]] - Название товара (pagetitle)</li>
-	<li>[[+key_d]] - Ключ товара</li>
-	<li>[[+count_d]] - Количество данного товара в корзине</li>
-	<li>[[+price_d]] - Цена товара товара за единицу</li>
-	<li>[[+sum_d]] - Сумма товара</li>
-        <li>[[+img_d]] - Картинка товара</li>
-</ul>
+
+    [[+name_d]] - Название товара (pagetitle)
+    [[+key_d]] - Ключ товара
+    [[+count_d]] - Количество данного товара в корзине
+    [[+price_d]] - Цена товара товара за единицу
+    [[+sum_d]] - Сумма товара
+    [[+img_d]] - Картинка товара
+    [[+id_d]] - ID товара (ресурса)
+
 
 Параметры:
-<ul>
-	<li>&tpl - Чанк для одного товара. По умолчанию: msMinicartDynamic</li>
-	<li>&tplOuter - Чанк обёртка всего блока. По умолчанию: msMinicartDynamicOuter</li>
-	<li>&img - Картинка (миниатюра) товара. По умолчанию: 24x92</li>
-</ul>
+
+    &tpl - Чанк для одного товара. По умолчанию: msMinicartDynamic
+    &tplOuter - Чанк обёртка всего блока. По умолчанию: msMinicartDynamicOuter
+    &img - Картинка (миниатюра) товара. По умолчанию: 24x92
+
 
 *******************************
 

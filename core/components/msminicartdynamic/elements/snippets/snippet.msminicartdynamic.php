@@ -37,11 +37,12 @@ foreach ($cart as $k => $v) {
 	
         $out .= $modx->getChunk($tpl, array(
                 'name_d' => $t['title'],
+                'id_d' => $v['id'],
                 'key_d' => $k,
                 'count_d' => $v['count'],
                 'price_d' => $v['price'],
                 'sum_d' => $v['count'] * $v['price'],
-		'img_d' => $t['img_path'],
+                'img_d' => $t['img_path'],
         ));
 }
 

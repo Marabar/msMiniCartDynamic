@@ -22,7 +22,6 @@ class msMiniCartDynamic {
 
 		$this->config = array_merge(array(
 			'assetsUrl' => $assetsUrl,
-			//'cssUrl' => $assetsUrl . 'css/',
 			'jsUrl' => $assetsUrl . 'js/web/',
 			'connectorUrl' => $connectorUrl,
 
@@ -31,17 +30,14 @@ class msMiniCartDynamic {
 			'chunksPath' => $corePath . 'elements/chunks/',
 			'snippetsPath' => $corePath . 'elements/snippets/',
 		), $config);
-
-		//$this->modx->addPackage('msminicartdynamic', $this->config['modelPath']);
-		//$this->modx->lexicon->load('msminicartdynamic:default');
 	}
         
         
         /**
-                * 
-                * @param type $id
-                * @return string
-                */
+        * 
+        * @param type $id
+        * @return string
+        */
         public function getMsCart($id) {
 
                 $cart = $_SESSION['minishop2']['cart'];
@@ -65,52 +61,51 @@ class msMiniCartDynamic {
         }
         
         /**
-                * 
-                * @param type $action
-                * @param type $act
-                * @return type
-                */
+        * 
+        * @param type $action
+        * @param type $act
+        * @return type
+        */
         public function parseCart($action) {
                 
-                $success = array();
-                
-                if (!empty($action))
-                        $cart = $this->getMsCart ('get');
-                
-                if ($cart) {
-                
-                        foreach ($cart as $k => $v) {
-				
-				$t = array();
-				$t = $this->getPathImg($v['id'], $_SESSION['dynamicChunk']['img']);
+            $success = array();
 
-                                $success['success'] = true;
-                                $success['data'] = array(
-                                        'key_d' => $k,
-                                        'id_d' => $v['id'],
-                                        'name_d' => $t['title'],
-                                        'count_d' => $v['count'],
-                                        'price_d' => $v['price'],
-                                        'sum_d' => $v['count'] * $v['price'],
-					'img_d' => $t['img_path'],
-                                );
+            if (!empty($action))
+                $cart = $this->getMsCart ('get');
 
-                                $tpl .= $this->modx->getChunk($_SESSION['dynamicChunk']['tpl'], $success['data']);
-                        }
-                        
-                        unset($cart);
+            if ($cart) {
 
-                        $success['data']['tpl'] = $tpl;
+                foreach ($cart as $k => $v) {
 
-                        return $this->modx->toJSON($success);
+                    $t = array();
+                    $t = $this->getPathImg($v['id'], $_SESSION['dynamicChunk']['img']);
+
+                    $success['success'] = true;
+                    $success['data'] = array(
+                        'key_d' => $k,
+                        'id_d' => $v['id'],
+                        'name_d' => $t['title'],
+                        'count_d' => $v['count'],
+                        'price_d' => $v['price'],
+                        'sum_d' => $v['count'] * $v['price'],
+                        'img_d' => $t['img_path'],
+                    );
+
+                    $tpl .= $this->modx->getChunk($_SESSION['dynamicChunk']['tpl'], $success['data']);
                 }
-                else {
-                        $success['success'] = false;
-                        $success['data'] = array(
-                            'mesages' => 'error',
-                        );
-                        return $this->modx->toJSON($success);
-                }
+
+                unset($cart);
+
+                $success['data']['tpl'] = $tpl;
+
+                return $this->modx->toJSON($success);
+            } else {
+                $success['success'] = false;
+                $success['data'] = array(
+                    'mesages' => 'error',
+                );
+                return $this->modx->toJSON($success);
+            }
         }
 	
 	

@@ -123,6 +123,7 @@ $(document).ready(function(){
 	// Обновление мини корзины без +/-
 	$(document).on('submit', 'form', function(e) {
 		var cls = $( this ).attr( 'class' );
+		var id = $( this ).closest( 'form' ).children( 'input[name=id]' ).val();
 		if ( cls != 'dynamic-action' ) {
 			miniShop2.Callbacks.Cart.add.response.success = function( response ) {
 				if( response['success'] == true ) {
@@ -131,7 +132,15 @@ $(document).ready(function(){
 			}
 			miniShop2.Callbacks.Cart.remove.response.success = function( response ) {
 				if( response['success'] == true ) {
-					msMiniCartDynamic.changeDynamic( 'add' );
+					msMiniCartDynamic.changeDynamic( 'remove' );
+					
+					if( $( 'form' ).is( '#dynamic-' + id ) ) {
+						var selector = '#dynamic-' + id;
+						
+						$( selector + ' input[name=key]' ).val( '' );
+						$( selector + ' .dynamic-action' ).val( 'cart/add' );
+						$( selector + ' input[name=count]' ).val( '' );
+					}
 				}
 			}
 		}
