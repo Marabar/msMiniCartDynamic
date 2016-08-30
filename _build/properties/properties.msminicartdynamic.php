@@ -13,7 +13,7 @@ $tmp = array(
 	),
 	'img' => array(
 		'type' => 'textfield',
-		'value' => '24x92',
+		'value' => '',
 	),
 );
 

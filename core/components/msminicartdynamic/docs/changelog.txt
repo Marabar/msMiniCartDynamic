@@ -1,5 +1,8 @@
 Changelog for msMiniCartDynamic.
 
+1.0.5-pl
+- [msMiniCartDynamic] - Убран размер картинки, по умолчанию
+
 1.0.4-pl
 - [msminicartdynamic] - Удаление товара из мини-корзины. Переход из корзины на страницу товара.
 
