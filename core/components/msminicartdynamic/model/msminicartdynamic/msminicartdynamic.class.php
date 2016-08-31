@@ -39,25 +39,22 @@ class msMiniCartDynamic {
         * @return string
         */
         public function getMsCart($id) {
+            $cart = $_SESSION['minishop2']['cart'];
+            if (empty($cart)) 
+                return false;
 
-                $cart = $_SESSION['minishop2']['cart'];
-                
-                if (empty($cart)) 
-                    return false;
-                
-                if ($id == 'get') return $cart;
-                
-                foreach ($cart as $k => $v) {
-                        if (in_array($id, $v)) {
-                                return array(
-                                        'key_d' => $k,
-                                        'id_d' => $v['id'],
-                                        'count_d' => $v['count'],
-                                );
-                        }
+            if ($id == 'get') return $cart;
+
+            foreach ($cart as $k => $v) {
+                if (in_array($id, $v)) {
+                    return array(
+                        'key_d' => $k,
+                        'id_d' => $v['id'],
+                        'count_d' => $v['count'],
+                    );
                 }
-                
-                return '';
+            }
+            return '';
         }
         
         /**
@@ -74,12 +71,11 @@ class msMiniCartDynamic {
                 $cart = $this->getMsCart ('get');
 
             if ($cart) {
-
                 foreach ($cart as $k => $v) {
 
                     $t = array();
                     $t = $this->getPathImg($v['id'], $_SESSION['dynamicChunk']['img']);
-
+                    
                     $success['success'] = true;
                     $success['data'] = array(
                         'key_d' => $k,
@@ -93,12 +89,11 @@ class msMiniCartDynamic {
 
                     $tpl .= $this->modx->getChunk($_SESSION['dynamicChunk']['tpl'], $success['data']);
                 }
-
                 unset($cart);
-
                 $success['data']['tpl'] = $tpl;
 
                 return $this->modx->toJSON($success);
+                
             } else {
                 $success['success'] = false;
                 $success['data'] = array(
@@ -110,23 +105,30 @@ class msMiniCartDynamic {
 	
 	
 	public function getPathImg($id, $img) {
-		
 		$response = array();
+        
+        $objProduct = $this->modx->getObject('msProduct', $id);
+        if ($objProduct)
+            $response['title'] = $objProduct->get('pagetitle');
 		
-		$q = $this->modx->newQuery('msProduct', $id);
-		$q->select('pagetitle, msProductFile.url');
-		$q->leftJoin('msProductFile', 'msProductFile', 'msProductFile.product_id=msProduct.id');
-		$q->where(array(
-			'msProductFile.path' => $id. $img,
-		));
-		if ($q->prepare() && $q->stmt->execute()) {
-			while ($row = $q->stmt->fetch(PDO::FETCH_ASSOC)) {
-				
-				$response['title'] = $row['pagetitle'];
-				$response['img_path'] = $row['url'];
-			}
-		}
-		
-		return $response;
+		$q = $this->modx->newQuery('msProductFile');
+        $q->where(array(
+            'product_id' => $id,
+            'path' => $id . $img,
+        ));
+        $images = $this->modx->getIterator('msProductFile', $q);
+        $images->rewind();
+		if ($images->valid()) {
+            foreach ($images as $img) {
+                $imgArray = $img->toArray();
+                $response['img_path'] = $imgArray['url'];
+            }
+        } else {
+            $response['img_path'] = $img;
+            if (!empty($img))
+                $this->modx->log(MODX::LOG_LEVEL_ERROR, 'Not true set the picture size ' . $img);
+        }
+        
+        return $response;
 	}
 }

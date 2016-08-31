@@ -16,7 +16,7 @@ if ($cart == false)
 
 $img = !empty($img)
 	? '/'. $img. '/'
-	: '/';
+	: '';
 
 if (!isset($_SESSION['dynamicChunk'])) {
     $_SESSION['dynamicChunk'] = array();
