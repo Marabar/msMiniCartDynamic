@@ -1,5 +1,8 @@
 Changelog for msMiniCartDynamic.
 
+1.0.7-pl
+- [msminicartdynamic] - Ошибка записи в сессию при пустой корзине
+
 1.0.6-pl
 - Проверка наличия указанной картинки
 

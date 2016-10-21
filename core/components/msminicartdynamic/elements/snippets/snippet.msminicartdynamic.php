@@ -1,7 +1,8 @@
 <?php
 
-if (!$msMiniCartDynamic = $modx->getService('msminicartdynamic', 'msMiniCartDynamic', $modx->getOption('msminicartdynamic_core_path', null, $modx->getOption('core_path') . 'components/msminicartdynamic/') . 'model/msminicartdynamic/', $scriptProperties)) {
-	return 'Could not load msMiniCartDynamic class!';
+if (!$msMiniCartDynamic = $modx->getService('msminicartdynamic', 'msMiniCartDynamic', $modx->getOption('msminicartdynamic_core_path', null,
+    $modx->getOption('core_path') . 'components/msminicartdynamic/') . 'model/msminicartdynamic/', $scriptProperties)) {
+	return '';
 }
 
 $tpl = $modx->getOption('tpl', $scriptProperties, 'msMinicartDynamic');
@@ -11,25 +12,28 @@ $img = $modx->getOption('img', $scriptProperties, '');
 $out = '';
 $cart = $msMiniCartDynamic->getMsCart('get');
 
-if ($cart == false)
-    return $modx->getChunk($tplOuter, array('output' => ''));
-
 $img = !empty($img)
 	? '/'. $img. '/'
 	: '';
 
+$record = array(
+    'tpl' => $tpl,
+    'img' => $img,
+);
+
 if (!isset($_SESSION['dynamicChunk'])) {
     $_SESSION['dynamicChunk'] = array();
-    $_SESSION['dynamicChunk']['tpl'] = $tpl;
-	$_SESSION['dynamicChunk']['img'] = $img;
-}
-elseif ($_SESSION['dynamicChunk']['tpl'] != $tpl) {
-    $_SESSION['dynamicChunk']['tpl'] = $tpl;
-}
-elseif ($_SESSION['dynamicChunk']['img'] != $img) {
-    $_SESSION['dynamicChunk']['img'] = $img;
 }
 
+if ($_SESSION['dynamicChunk'] !== $record) {
+    $_SESSION['dynamicChunk'] = $record;
+}
+
+session_write_close();
+
+if ($cart == false)
+    return $modx->getChunk($tplOuter, array('output' => ''));
+    
 foreach ($cart as $k => $v) {
 	
 	$t = array();
