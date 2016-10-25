@@ -10,6 +10,7 @@ $tplOuter = $modx->getOption('tplOuter', $scriptProperties, 'msMinicartDynamicOu
 $img = $modx->getOption('img', $scriptProperties, '');
 
 $out = '';
+$output = '';
 $cart = $msMiniCartDynamic->getMsCart('get');
 
 $img = !empty($img)
@@ -28,8 +29,6 @@ if (!isset($_SESSION['dynamicChunk'])) {
 if ($_SESSION['dynamicChunk'] !== $record) {
     $_SESSION['dynamicChunk'] = $record;
 }
-
-session_write_close();
 
 if ($cart == false)
     return $modx->getChunk($tplOuter, array('output' => ''));

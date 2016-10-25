@@ -1,5 +1,8 @@
 Changelog for msMiniCartDynamic.
 
+1.0.8-pl
+- [msminicartdynamic] - fix session_write_close();
+
 1.0.7-pl
 - [msminicartdynamic] - Ошибка записи в сессию при пустой корзине
 
