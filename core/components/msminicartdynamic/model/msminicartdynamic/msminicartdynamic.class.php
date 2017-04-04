@@ -115,6 +115,7 @@ class msMiniCartDynamic {
         $q->where(array(
             'product_id' => $id,
             'path' => $id . $img,
+            'rank' => 0,
         ));
         $images = $this->modx->getIterator('msProductFile', $q);
         $images->rewind();
