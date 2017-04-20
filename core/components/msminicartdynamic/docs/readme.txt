@@ -61,7 +61,7 @@ Author: Marat Marabar <marat@marabar.ru>
 	</div>
 
 	[[!msMiniCartDynamic?
-            &img = `24x92`
+            &img = `small`
         ]]
 
 	<div class="not_empty">
