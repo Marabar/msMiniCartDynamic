@@ -86,7 +86,10 @@ class msMiniCartDynamic {
                     'img_d' => $t['img_path'],
                 );
 
-                $tpl .= $this->modx->getChunk($_SESSION['dynamicChunk']['tpl'], $success['data']);
+                $chunk = $this->modx->getChunk($_SESSION['dynamicChunk']['tpl'], $success['data']);
+		$this->modx->getParser()->processElementTags('', $chunk, false, false, '[[', ']]', array(), 10);
+		$this->modx->getParser()->processElementTags('', $chunk, true, true, '[[', ']]', array(), 10);
+		$tpl .= $chunk;
             }
             unset($cart);
             $success['data']['tpl'] = $tpl;
