@@ -9,7 +9,6 @@ class msMiniCartDynamic {
     /** @var pdoTools $pdoTools */
     public $pdoTools;
 
-
 	/**
 	 * @param modX $modx
 	 * @param array $config
