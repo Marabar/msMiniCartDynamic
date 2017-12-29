@@ -1,5 +1,9 @@
 Changelog for msMiniCartDynamic.
 
+1.0.10-pl
+- Добавлена возможность вставлять сниппеты в tpl
+- Поддержка Fenom
+
 1.0.9-pl
 - [#2] - fix Вывод картинки
 

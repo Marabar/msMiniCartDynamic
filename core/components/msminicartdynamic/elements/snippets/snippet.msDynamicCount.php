@@ -1,7 +1,11 @@
 <?php
+/** @var modX $modx */
+/** @var array $scriptProperties */
 
-if (!$msMiniCartDynamic = $modx->getService('msminicartdynamic', 'msMiniCartDynamic', $modx->getOption('msminicartdynamic_core_path', null, $modx->getOption('core_path') . 'components/msminicartdynamic/') . 'model/msminicartdynamic/', $scriptProperties)) {
-	return 'Could not load msMiniCartDynamic class!';
+if (!$msMiniCartDynamic = $modx->getService('msminicartdynamic', 'msMiniCartDynamic',
+    $modx->getOption('msminicartdynamic_core_path', null, $modx->getOption('core_path')
+        . 'components/msminicartdynamic/') . 'model/msminicartdynamic/', $scriptProperties)) {
+	return '';
 }
 
 $tplDefault = $modx->getOption('tplDefault', $scriptProperties, 'msDynamicCount');

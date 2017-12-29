@@ -6,7 +6,8 @@
 class msMiniCartDynamic {
 	/* @var modX $modx */
 	public $modx;
-        public $ms2;
+    /** @var pdoTools $pdoTools */
+    public $pdoTools;
 
 
 	/**
@@ -33,17 +34,15 @@ class msMiniCartDynamic {
 			'snippetsPath' => $corePath . 'elements/snippets/',
 		), $config);
 	}
-        
-        
+
     /**
-    *
-    * @param type $id
-    * @return string
-    */
+     * @param $id
+     * @return array|bool|string
+     */
     public function getMsCart($id) {
         $cart = $_SESSION['minishop2']['cart'];
-        if (empty($cart))
-            return false;
+
+        if (empty($cart))  return false;
 
         if ($id == 'get') return $cart;
 
@@ -60,13 +59,13 @@ class msMiniCartDynamic {
     }
 
     /**
-    *
-    * @param type $action
-    * @param type $act
-    * @return type
-    */
+     * @param $action
+     * @return string
+     */
     public function parseCart($action) {
         $success = array();
+        $tpl = '';
+
         if (!empty($action))
             $cart = $this->getMsCart ('get');
 
@@ -86,13 +85,13 @@ class msMiniCartDynamic {
                     'img_d' => $t['img_path'],
                 );
 
-                $tpl .= $this->modx->getChunk($_SESSION['dynamicChunk']['tpl'], $success['data']);
+                $chunk = $this->getChunk($_SESSION['dynamicChunk']['tpl'], $success['data']);
+                $tpl .= $this->getParserTag($chunk);
             }
             unset($cart);
             $success['data']['tpl'] = $tpl;
 
             return $this->modx->toJSON($success);
-
         } else {
             $success['success'] = false;
             $success['data'] = array(
@@ -101,7 +100,6 @@ class msMiniCartDynamic {
             return $this->modx->toJSON($success);
         }
     }
-
 
     /**
      * @param $id
@@ -135,4 +133,33 @@ class msMiniCartDynamic {
         }
         return $response;
 	}
+
+    /**
+     * @param $content
+     * @return mixed
+     */
+    private function getParserTag($content)
+    {
+        $this->modx->getParser()
+            ->processElementTags('', $content, false, false, '[[', ']]', array(), 10);
+        $this->modx->getParser()
+            ->processElementTags('', $content, true, true, '[[', ']]', array(), 10);
+
+        return $content;
+    }
+
+    /**
+     * @param $chunk
+     * @param array $properties
+     * @return string
+     */
+    public function getChunk($chunk, $properties = array())
+    {
+        if ($this->pdoTools = $this->modx->getService('pdoTools')) {
+            $response = $this->pdoTools->getChunk($chunk, $properties);
+        } else {
+            $response = $this->modx->getChunk($chunk, $properties);
+        }
+        return $response;
+    }
 }

@@ -1,7 +1,10 @@
 <?php
+/** @var modX $modx */
+/** @var array $scriptProperties */
 
-if (!$msMiniCartDynamic = $modx->getService('msminicartdynamic', 'msMiniCartDynamic', $modx->getOption('msminicartdynamic_core_path', null,
-    $modx->getOption('core_path') . 'components/msminicartdynamic/') . 'model/msminicartdynamic/', $scriptProperties)) {
+if (!$msMiniCartDynamic = $modx->getService('msminicartdynamic', 'msMiniCartDynamic',
+    $modx->getOption('msminicartdynamic_core_path', null, $modx->getOption('core_path')
+        . 'components/msminicartdynamic/') . 'model/msminicartdynamic/', $scriptProperties)) {
 	return '';
 }
 
@@ -34,7 +37,6 @@ if ($cart == false)
     return $modx->getChunk($tplOuter, array('output' => ''));
     
 foreach ($cart as $k => $v) {
-	
 	$t = array();
 	$t = $msMiniCartDynamic->getPathImg($v['id'], $img);
 	
@@ -48,7 +50,6 @@ foreach ($cart as $k => $v) {
             'img_d' => $t['img_path'],
         ));
 }
-
 $output = $modx->getChunk($tplOuter, array('output' => $out));
 
 return $output;
