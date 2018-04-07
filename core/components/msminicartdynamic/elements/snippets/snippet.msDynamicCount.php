@@ -20,12 +20,12 @@ elseif ($_SESSION['dynamicChunk']['tplChange'] != $tplChange) {
         $_SESSION['dynamicChunk']['tplChange'] = $tplChange;
 }
 
-$output = $modx->getChunk($tplDefault);
+$output = $msMiniCartDynamic->getChunk($tplDefault);
 
 $cart = $msMiniCartDynamic->getMsCart($id);
 
 if ($cart && $cart['id_d'] == $id) {
-        $output = $modx->getChunk($tplChange, array(
+        $output = $msMiniCartDynamic->getChunk($tplChange, array(
             'key_d' => $cart['key_d'],
             'count_d' => $cart['count_d'],
             'id_d' => $id,

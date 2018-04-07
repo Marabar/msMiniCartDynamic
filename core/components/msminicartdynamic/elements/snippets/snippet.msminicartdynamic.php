@@ -34,7 +34,7 @@ if ($_SESSION['dynamicChunk'] !== $record) {
 }
 
 if ($cart == false)
-    return $modx->getChunk($tplOuter, array('output' => ''));
+    return $msMiniCartDynamic->getChunk($tplOuter, array('output' => ''));
     
 foreach ($cart as $k => $v) {
 	$t = array();
@@ -50,6 +50,6 @@ foreach ($cart as $k => $v) {
             'img_d' => $t['img_path'],
         ));
 }
-$output = $modx->getChunk($tplOuter, array('output' => $out));
+$output = $msMiniCartDynamic->getChunk($tplOuter, array('output' => $out));
 
 return $output;
