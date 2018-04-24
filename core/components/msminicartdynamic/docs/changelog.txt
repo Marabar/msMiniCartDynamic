@@ -1,5 +1,8 @@
 Changelog for msMiniCartDynamic.
 
+1.0.11-pl1
+- [msMiniCartDynamic] - Fix. Получения чанка через pdoTools
+
 1.0.10-pl1
 - Поддержка Fenom в сниппетах
 

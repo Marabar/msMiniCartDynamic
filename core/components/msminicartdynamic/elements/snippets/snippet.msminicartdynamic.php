@@ -40,7 +40,7 @@ foreach ($cart as $k => $v) {
 	$t = array();
 	$t = $msMiniCartDynamic->getPathImg($v['id'], $img);
 	
-        $out .= $modx->getChunk($tpl, array(
+        $out .= $msMiniCartDynamic->getChunk($tpl, array(
             'name_d' => $t['title'],
             'id_d' => $v['id'],
             'key_d' => $k,

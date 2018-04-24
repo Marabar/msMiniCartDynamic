@@ -4,7 +4,7 @@
 define('PKG_NAME', 'msMiniCartDynamic');
 define('PKG_NAME_LOWER', strtolower(PKG_NAME));
 
-define('PKG_VERSION', '1.0.10');
+define('PKG_VERSION', '1.0.11');
 define('PKG_RELEASE', 'pl1');
 define('PKG_AUTO_INSTALL', true);
 define('PKG_NAMESPACE_PATH', '{core_path}components/' . PKG_NAME_LOWER . '/');
